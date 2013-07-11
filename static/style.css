@@ -1,0 +1,191 @@
+@font-face {font-family:"Beeb Mode One";src:url("beebmo.eot?") format("eot"),url("beebmo.woff") format("woff"),url("beebmo.ttf") format("truetype"),url("beebmo.svg#BeebModeOne") format("svg");font-weight:normal;font-style:normal;}
+
+
+html, body, div, h1, span {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #E9AF13;
+	z-index: 0;
+}
+
+.rechtsblau {
+	background: #0074C2;
+	width: 50%;
+	height: 100%;
+	z-index: -1;
+	position: fixed;
+	right: 0px;
+}
+
+.admin {
+	font-family: 'Lucida Grande', sans-serif;
+	font-size: 12px;
+	background: #ddd url(bg.png);
+	width: 100%;
+	padding: 12px 0 1px;
+	position: relative;
+	z-index: 2;
+	border-bottom: 1px solid #aaa;
+}
+
+.edit {
+	display: none;
+	margin-bottom: 10px;
+}
+
+.admin table {
+	font-size: 12px;
+}
+
+.admin tr.head {
+	text-align: left;
+}
+
+.admin tr.foot {
+	text-align: right;
+}
+
+h2 {
+	font-weight: bold;
+	font-size: 12px;
+}
+
+form {
+	width: 800px;
+	margin: 0 auto 12px;
+}
+
+label {
+	margin-right: 5px;
+}
+
+input {
+	padding: 4px 6px;
+}
+
+input[type="text"],input[type="url"] {
+	width: 180px;
+}
+
+input[name="unit"] {
+	width: 40px;
+}
+
+.unitinput {
+	width: 50px !important;
+}
+
+input[type="number"] {
+	width: 100px;
+}
+
+.right {
+	width: 800px;
+	text-align: right;
+	margin: 0px auto 10px;
+}
+
+.close {
+	display: none;
+}
+
+.right a, .right a:visited {
+	color: #0074C2;
+}
+
+.flash {
+	width: 100%;
+	line-height: 30px;
+	padding-top: 4px;
+	font-size: 20px;
+	text-align: center;
+	background: rgba(255,255,255,.8);
+	border-bottom: 1px solid #aaa;
+}
+
+.container {
+	width: 800px;
+	margin: 0 auto;
+	font-family: 'Beeb Mode One', 'BeebModeOne', Helvetica, sans-serif;
+	-webkit-font-smoothing: none;
+	-moz-font-smoothing: none;
+	font-smoothing: none;
+}
+
+.container table {
+	width: 100%;
+	color: #fff;
+	text-transform: uppercase;
+}
+
+.container .h1 {
+	font-size: 40px;
+	text-shadow: 0 5px #000;
+	line-height: 80px;
+	letter-spacing: 4px;
+}
+
+.container tr {
+	height: 38px;
+	font-size: 18px;
+	letter-spacing: 3px;
+	text-shadow: 0 2px #000;
+}
+
+.d, .m {
+	width: 25%;
+}
+
+.container table a {
+	color: #fff;
+	text-decoration: none;
+}
+
+.c {
+	width: 50%;
+	text-align: center;
+}
+
+.v {
+	width: 25%;
+}
+
+.s {
+	width: 25%;
+	padding-left: 3px;
+}
+
+.v, .m {text-align: right;}
+
+.s {text-align: left}
+
+.container table tr .c .title {
+	padding: 12px 10px 10px;
+}
+
+.container table tr .c .danielgewinnt {
+	background: #E9AF13;
+}
+
+.container table tr .c .maxgewinnt {
+	background: #0074C2;
+}
+
+.unit {
+	margin-left: 6px;
+}
+/*
+@media (max-width: 800px) {
+	body, .container {
+		width: 100%;
+	}
+}
+
+@media (max-width: 400px) {
+	body, .container {
+		width: 400px;
+	}
+}*/

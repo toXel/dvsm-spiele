@@ -1,0 +1,120 @@
+{% extends "layout.html" %}
+{% block body %}
+
+{% if session.logged_in %}
+<div class="admin">
+	<div class="edit">
+	<form action="{{ url_for('new_game') }}" method="post">
+		<table>
+			<tr><td colspan="2">Neues Spiel hinzufügen:</td></tr>
+			<tr><td><label for="gametitle">Titel:</label></td><td><input type="text" name="gametitle" placeholder="Super Crate Box"></td></tr>
+			<tr><td><label for="gameurl">URL:</label></td><td><input type="url" name="gameurl" placeholder="http://"></td></tr>
+			<tr><td><label for="higherisbetter">Was ist besser?</label></td><td><input type="radio" name="higherisbetter" value="1" checked>Höher <input type="radio" name="higherisbetter" value=0>Niedriger</td></tr>
+			<tr><td><label for="unit">Score-Einheit:</label></td><td><input type="text" name="unit" placeholder="cm"></td></tr>
+			<tr><td><input type="submit" value="Speichern"></td></tr>
+		</table>
+	</form>
+	<hr>
+
+	<form action="{{ url_for('update_score') }}" method="post">
+		<label for="game">Score eintragen:</label><select name="game">
+			<option value="none">--</option>
+			{% for score in scores %}
+			<option value={{ score.gameid }}>{{ score.gametitle }}</option>
+			{% endfor %}
+		</select>
+
+		<label for="danielscore">Daniel:</label><input type="number" name="danielscore">
+		<label for="maxscore">Max:</label><input type="number" name="maxscore">
+		<input type="submit" value="Speichern">
+	</form>
+
+	<hr>
+
+	<form action="{{ url_for('remove_game') }}" method="post">
+		<label for="gametitle">Spiel entfernen:</label>
+		<select name="game">
+			<option value="none">--</option>
+			{% for score in scores %}
+			<option value={{ score.gameid }}>{{ score.gametitle }}</option>
+			{% endfor %}
+		</select>
+		<input type="submit" value="L"öschen>
+	</form>
+
+	<hr>
+
+	<form action="{{ url_for('edit_game') }}" method="post">
+		<table>
+			<tr class="head"><td colspan="2"><label for="game">Spiel bearbeiten:</label>
+				<select name="game">
+					<option value="none">--</option>
+					{% for score in scores %}
+					<option value={{ score.gameid }}>{{ score.gametitle }}</option>
+					{% endfor %}
+				</select></td></tr>
+			<tr>
+				<td><input type="checkbox" name="edit_gametitle"><label for="edit_gametitle">Titel bearbeiten</label></td>
+				<td><input type="text" name="gametitle"></td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="edit_gameurl"><label for="edit_gameurl">URL bearbeiten</label></td>
+				<td><input type="url" name="gameurl" placeholder="http"://></td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="edit_higherisbetter"><label for="edit_gameurl">Höher/Niedriger bearbeiten</label></td>
+				<td><input type="radio" name="higherisbetter" checked value="1">Höher
+					<input type="radio" name="higherisbetter" value=0>Niedriger</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="edit_unit"><label for="edit_unit">Einheit bearbeiten</label></td>
+				<td><input type="text" name="unit" placeholder="cm"></td>
+
+			<tr><td><input type="submit" value="Speichern"></td></tr>
+		</table>
+	</form>
+
+	<hr>
+	</div>
+
+	<p class="right">
+		<a class="toggle close" href=#>Admin-Interface schließen</a>
+		<a class="toggle open" href=#>Admin-Interface öffnen</a>
+	</p>
+
+</div>
+{% endif %}
+
+	<div class="container">
+
+	<table>
+		<tr class="h1"><td class="d"><a href="http://twitter.com/danjel">Daniel</a></td><td class="v">v</td><td class="s">s</td><td class="m"><a href="http://twitter.com/maxfriedrich">Max</a></tr>
+		{% for score in scores %}
+	<tr>
+		<td class="d">{{score.danielscore}}{% if score.unit %}<span class="unit">{{score.unit}}</span>{% endif %}
+		</td>
+		<td class="c" colspan="2">
+			{% if score.danielgewinnt %}
+				<span class="title danielgewinnt">
+			{% else %}
+				{% if score.maxgewinnt %}
+					<span class="title maxgewinnt">
+				{% else %}
+					<span class="title">
+				{% endif %}
+			{% endif %}
+			{% if score.gameurl %}
+				<a href="{{score.gameurl}}">{{score.gametitle}}</a>
+			{% else %}
+				{{score.gametitle}}
+			{% endif %}
+		</span></td>
+		<td class="m">{{score.maxscore}}{% if score.unit %}<span class="unit">{{score.unit}}</span>{% endif %}</td>
+	</tr>
+		{% else %}
+	<tr>Nichts hier</tr>
+		{% endfor %}
+	</table>
+{% endblock %}
+
+	</div>
