@@ -15,7 +15,11 @@ So, this is how I do it:
 4. Go to 127.0.0.1:5000
 5. Enjoy. This should work. You'll work it out.
 
-If you want to install this on your host/webserver, follow the instructions your host/your mom provides you with. It's just another Flask-site.
+If you want to install this on your host/webserver, follow the instructions your host/your mom provides you with. It's just another Flask-site. And check the [Flask Documentation](http://flask.pocoo.org/docs/).
+
+# License
+
+We do not really care. Fork away, download, change, send us pull requests for nicer Flash-Messages or just do whatever you want.
 
 # kthxbai
 
