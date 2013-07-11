@@ -113,7 +113,7 @@ def update_sort(gameid):
 	cur = g.db.execute('select gameid, gametitle, gameurl, danielscore, maxscore, (danielscore > maxscore and higherisbetter) or (danielscore < maxscore and not higherisbetter), (maxscore > danielscore and higherisbetter) or (maxscore < danielscore and not higherisbetter), unit, higherisbetter, sort from scores where gameid=?', [gameid])
 	scores = [dict(gameid=row[0], gametitle=row[1], gameurl=row[2], danielscore=row[3], maxscore=row[4], danielgewinnt=row[5], maxgewinnt=row[6], unit=row[7], higherisbetter=row[8], sort=row[9]) for row in cur.fetchall()]
 	for score in scores:
-		sortvalue = 100*(max(score['danielscore'],score['maxscore'])) / (score['maxscore']+score['danielscore'])
+		sortvalue = 100.0*(max(score['danielscore'],score['maxscore'])) / (score['maxscore']+score['danielscore'])
 		if not score['higherisbetter']:
 			sortvalue = 100-sortvalue
 		g.db.execute('update scores set sort = ? where gameid=?', [sortvalue, score['gameid']])
