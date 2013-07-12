@@ -24,8 +24,8 @@
 			{% endfor %}
 		</select>
 
-		<label for="danielscore">Daniel:</label><input type="number" name="danielscore">
-		<label for="maxscore">Max:</label><input type="number" name="maxscore">
+		<label for="danielscore">Jele:</label><input type="number" name="jelescore">
+		<label for="maxscore">Timo:</label><input type="number" name="maxscore">
 		<input type="submit" value="Speichern">
 	</form>
 
@@ -88,17 +88,17 @@
 	<div class="container">
 
 	<table>
-		<tr class="h1"><td class="d"><a href="http://twitter.com/danjel">Daniel</a></td><td class="v">v</td><td class="s">s</td><td class="m"><a href="http://twitter.com/maxfriedrich">Max</a></tr>
+		<tr class="h1"><td class="d"><a href="http://twitter.com/danjel">Jele</a></td><td class="v">v</td><td class="s">s</td><td class="m"><a href="http://twitter.com/timo625">Timo</a></tr>
 		{% for score in scores %}
 	<tr>
-		<td class="d">{{score.danielscore}}{% if score.unit %}<span class="unit">{{score.unit}}</span>{% endif %}
+		<td class="d">{{score.jelescore}}{% if score.unit %}<span class="unit">{{score.unit}}</span>{% endif %}
 		</td>
 		<td class="c" colspan="2">
-			{% if score.danielgewinnt %}
-				<span class="title danielgewinnt">
+			{% if score.jelegewinnt %}
+				<span class="title jelegewinnt">
 			{% else %}
 				{% if score.maxgewinnt %}
-					<span class="title maxgewinnt">
+					<span class="title timogewinnt">
 				{% else %}
 					<span class="title">
 				{% endif %}

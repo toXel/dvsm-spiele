@@ -1,11 +1,11 @@
 DATABASE = 'scores.db'
 DEBUG = True
 
-SECRET_KEY = 'secret' # YOU SHOULD CHANGE THIS
+SECRET_KEY = 'jvst1710secret2012' # YOU SHOULD CHANGE THIS
 
-D_USERNAME = 'daniel'
-D_PASSWORD = 'passwort'
-M_USERNAME = 'max'
-M_PASSWORD = 'passwort'
+J_USERNAME = 'jele'
+J_PASSWORD = 'passwort'
+T_USERNAME = 'timo'
+T_PASSWORD = 'passwort'
 
 TRAP_BAD_REQUEST_ERRORS = True
