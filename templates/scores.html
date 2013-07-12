@@ -24,8 +24,8 @@
 			{% endfor %}
 		</select>
 
-		<label for="danielscore">Jele:</label><input type="number" name="jelescore">
-		<label for="maxscore">Timo:</label><input type="number" name="maxscore">
+		<label for="jelescore">Jele:</label><input type="number" name="jelescore">
+		<label for="timoscore">Timo:</label><input type="number" name="timoscore">
 		<input type="submit" value="Speichern">
 	</form>
 
@@ -97,7 +97,7 @@
 			{% if score.jelegewinnt %}
 				<span class="title jelegewinnt">
 			{% else %}
-				{% if score.maxgewinnt %}
+				{% if score.timogewinnt %}
 					<span class="title timogewinnt">
 				{% else %}
 					<span class="title">
@@ -109,7 +109,7 @@
 				{{score.gametitle}}
 			{% endif %}
 		</span></td>
-		<td class="m">{{score.maxscore}}{% if score.unit %}<span class="unit">{{score.unit}}</span>{% endif %}</td>
+		<td class="m">{{score.timoscore}}{% if score.unit %}<span class="unit">{{score.unit}}</span>{% endif %}</td>
 	</tr>
 		{% else %}
 	<tr>Nichts hier</tr>
