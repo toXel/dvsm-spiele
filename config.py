@@ -1,7 +1,7 @@
 DATABASE = 'scores.db'
 DEBUG = True
 
-SECRET_KEY = 'jvst1710secret2012' # YOU SHOULD CHANGE THIS
+SECRET_KEY = 'itsaSECRET' # YOU SHOULD CHANGE THIS
 
 J_USERNAME = 'jele'
 J_PASSWORD = 'passwort'
