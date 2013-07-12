@@ -28,9 +28,9 @@ def teardown_request(exception):
 
 @app.route('/')
 def all_scores():
-	cur = g.db.execute('select gameid, gametitle, gameurl, jelescore, timoscore, (jelescore > timoscore and higherisbetter) or (jelescore < timoscore and not higherisbetter), (timoscore > jelescore and higherisbetter) or (timoscore < jelescore and not higherisbetter), unit, higherisbetter, sort from scores order by sort')
-	#((abs(jelescore-timoscore))/(jelescore+timoscore))
-	scores = [dict(gameid=row[0], gametitle=row[1], gameurl=row[2], jelescore=row[3], timoscore=row[4], jelegewinnt=row[5], timogewinnt=row[6], unit=row[7], higherisbetter=row[8], sort=row[9]) for row in cur.fetchall()]
+	cur = g.db.execute('select gameid, gametitle, gameurl, gamer1score, gamer2score, (gamer1score > gamer2score and higherisbetter) or (gamer1score < gamer2score and not higherisbetter), (gamer2score > gamer1score and higherisbetter) or (gamer2score < gamer1score and not higherisbetter), unit, higherisbetter, sort from scores order by sort')
+	#((abs(gamer1score-gamer2score))/(gamer1score+gamer2score))
+	scores = [dict(gameid=row[0], gametitle=row[1], gameurl=row[2], gamer1score=row[3], gamer2score=row[4], gamer1gewinnt=row[5], gamer2gewinnt=row[6], unit=row[7], higherisbetter=row[8], sort=row[9]) for row in cur.fetchall()]
 	return render_template('scores.html', scores=scores)
 
 @app.route('/add', methods=['POST'])
@@ -38,7 +38,7 @@ def new_game():
 	if not session.get('logged_in'):
 		abort(401)
 	if request.method == 'POST' and request.form['gametitle']:
-		g.db.execute('insert into scores (gametitle, gameurl, timoscore, jelescore, higherisbetter, unit) values (?, ?, 0, 0, ?, ?)', [request.form['gametitle'], request.form['gameurl'], request.form['higherisbetter'], request.form['unit']])
+		g.db.execute('insert into scores (gametitle, gameurl, gamer2score, gamer1score, higherisbetter, unit) values (?, ?, 0, 0, ?, ?)', [request.form['gametitle'], request.form['gameurl'], request.form['higherisbetter'], request.form['unit']])
 		g.db.commit()
 		flash('Spiel hinzugefuegt.')
 		return redirect(url_for('all_scores'))
@@ -52,17 +52,17 @@ def update_score():
 	if not session.get('logged_in'):
 		abort(401)
 	if request.method == 'POST' and request.form['game'] != "none":
-		jelescore = 0
-		timoscore = 0
+		gamer1score = 0
+		gamer2score = 0
 		gameid = request.form['game']
-		if request.form['jelescore']:
-			jelescore = int(request.form['jelescore'])
-		if request.form['timoscore']:
-			timoscore = int(request.form['timoscore'])
-		if jelescore:
-			g.db.execute('update scores set jelescore=? where gameid=?', [jelescore, gameid])
-		if timoscore:
-			g.db.execute('update scores set timoscore=? where gameid=?', [timoscore, gameid])
+		if request.form['gamer1score']:
+			gamer1score = int(request.form['gamer1score'])
+		if request.form['gamer2score']:
+			gamer2score = int(request.form['gamer2score'])
+		if gamer1score:
+			g.db.execute('update scores set gamer1score=? where gameid=?', [gamer1score, gameid])
+		if gamer2score:
+			g.db.execute('update scores set gamer2score=? where gameid=?', [gamer2score, gameid])
 		g.db.commit()
 		update_sort(request.form['game'])
 		flash("Score aktualisiert.")
@@ -110,10 +110,10 @@ def edit_game():
 
 
 def update_sort(gameid):
-	cur = g.db.execute('select gameid, gametitle, gameurl, jelescore, timoscore, (jelescore > timoscore and higherisbetter) or (jelescore < timoscore and not higherisbetter), (timoscore > jelescore and higherisbetter) or (timoscore < jelescore and not higherisbetter), unit, higherisbetter, sort from scores where gameid=?', [gameid])
-	scores = [dict(gameid=row[0], gametitle=row[1], gameurl=row[2], jelescore=row[3], timoscore=row[4], jelegewinnt=row[5], timogewinnt=row[6], unit=row[7], higherisbetter=row[8], sort=row[9]) for row in cur.fetchall()]
+	cur = g.db.execute('select gameid, gametitle, gameurl, gamer1score, gamer2score, (gamer1score > gamer2score and higherisbetter) or (gamer1score < gamer2score and not higherisbetter), (gamer2score > gamer1score and higherisbetter) or (gamer2score < gamer1score and not higherisbetter), unit, higherisbetter, sort from scores where gameid=?', [gameid])
+	scores = [dict(gameid=row[0], gametitle=row[1], gameurl=row[2], gamer1score=row[3], gamer2score=row[4], gamer1gewinnt=row[5], gamer2gewinnt=row[6], unit=row[7], higherisbetter=row[8], sort=row[9]) for row in cur.fetchall()]
 	for score in scores:
-		sortvalue = 100.0*(timo(score['jelescore'],score['timoscore'])) / (score['timoscore']+score['jelescore'])
+		sortvalue = 100.0*(max(score['gamer1score'],score['gamer2score'])) / (score['gamer2score']+score['gamer1score'])
 		if not score['higherisbetter']:
 			sortvalue = 100-sortvalue
 		g.db.execute('update scores set sort = ? where gameid=?', [sortvalue, score['gameid']])
@@ -124,9 +124,9 @@ def update_sort(gameid):
 def login():
 	error = None
 	if request.method == 'POST':
-		if request.form['username'] != app.config['J_USERNAME'] and request.form['username'] != app.config['T_USERNAME']:
+		if request.form['username'] != app.config['USERNAME_1'] and request.form['username'] != app.config['USERNAME_2']:
 			error = 'invalid username'
-		elif request.form['password'] != app.config['J_PASSWORD'] and request.form['password'] != app.config['T_PASSWORD']:
+		elif request.form['password'] != app.config['PASSWORD_1'] and request.form['password'] != app.config['PASSWORD_2']:
 			error = 'invalid password'
 		else:
 			session ['logged_in'] = True

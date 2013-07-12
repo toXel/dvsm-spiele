@@ -3,9 +3,9 @@ DEBUG = True
 
 SECRET_KEY = 'itsaSECRET' # YOU SHOULD CHANGE THIS
 
-J_USERNAME = 'jele'
-J_PASSWORD = 'passwort'
-T_USERNAME = 'timo'
-T_PASSWORD = 'passwort'
+USERNAME_1 = 'jele'
+PASSWORD_1 = 'passwort'
+USERNAME_2 = 'timo'
+PASSWORD_2 = 'passwort'
 
 TRAP_BAD_REQUEST_ERRORS = True

@@ -7,7 +7,7 @@ html, body, div, h1, span {
 }
 
 body {
-	background: #E9AF13;
+	background: #31B404;
 	z-index: 0;
 }
 
@@ -166,11 +166,11 @@ input[type="number"] {
 	padding: 12px 10px 10px;
 }
 
-.container table tr .c .jelegewinnt {
-	background: #E9AF13;
+.container table tr .c .gamer1gewinnt {
+	background: #31B404;
 }
 
-.container table tr .c .timogewinnt {
+.container table tr .c .gamer2gewinnt {
 	background: #0074C2;
 }
 
