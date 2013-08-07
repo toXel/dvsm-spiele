@@ -24,8 +24,8 @@
 			{% endfor %}
 		</select>
 
-		<label for="gamer1score">Jele:</label><input type="number" name="gamer1score">
-		<label for="gamer2score">Timo:</label><input type="number" name="gamer2score">
+		<label for="user1score">Jele:</label><input type="number" name="user1score">
+		<label for="user2score">Timo:</label><input type="number" name="user2score">
 		<input type="submit" value="Speichern">
 	</form>
 
@@ -91,14 +91,14 @@
 		<tr class="h1"><td class="d">Jele</td><td class="v">v</td><td class="s">s</td><td class="m"><a href="http://twitter.com/timo625">Timo</a></tr>
 		{% for score in scores %}
 	<tr>
-		<td class="d">{{score.gamer1score}}{% if score.unit %}<span class="unit">{{score.unit}}</span>{% endif %}
+		<td class="d">{{score.user1score}}{% if score.unit %}<span class="unit">{{score.unit}}</span>{% endif %}
 		</td>
 		<td class="c" colspan="2">
-			{% if score.gamer1gewinnt %}
-				<span class="title gamer1gewinnt">
+			{% if score.user1gewinnt %}
+				<span class="title user1gewinnt">
 			{% else %}
-				{% if score.gamer2gewinnt %}
-					<span class="title gamer2gewinnt">
+				{% if score.user2gewinnt %}
+					<span class="title user2gewinnt">
 				{% else %}
 					<span class="title">
 				{% endif %}
@@ -109,7 +109,7 @@
 				{{score.gametitle}}
 			{% endif %}
 		</span></td>
-		<td class="m">{{score.gamer2score}}{% if score.unit %}<span class="unit">{{score.unit}}</span>{% endif %}</td>
+		<td class="m">{{score.user2score}}{% if score.unit %}<span class="unit">{{score.unit}}</span>{% endif %}</td>
 	</tr>
 		{% else %}
 	<tr>Nichts hier</tr>

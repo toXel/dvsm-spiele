@@ -166,11 +166,11 @@ input[type="number"] {
 	padding: 12px 10px 10px;
 }
 
-.container table tr .c .gamer1gewinnt {
+.container table tr .c .user1gewinnt {
 	background: #31B404;
 }
 
-.container table tr .c .gamer2gewinnt {
+.container table tr .c .user2gewinnt {
 	background: #0074C2;
 }
 

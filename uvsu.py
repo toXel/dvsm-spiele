@@ -4,14 +4,13 @@ import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 import os
 
-
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config.from_pyfile('config.py')
 
 def init_db():
 	with closing(connect_db()) as db:
-		with app.open_resource('schema.sql') as f:
+		with app.open_resource('data.sql') as f:
 			db.cursor().executescript(f.read())
 		db.commit()
 
@@ -113,11 +112,7 @@ def update_sort(gameid):
 	cur = g.db.execute('select gameid, gametitle, gameurl, user1score, user2score, (user1score > user2score and higherisbetter) or (user1score < user2score and not higherisbetter), (user2score > user1score and higherisbetter) or (user2score < user1score and not higherisbetter), unit, higherisbetter, sort from scores where gameid=?', [gameid])
 	scores = [dict(gameid=row[0], gametitle=row[1], gameurl=row[2], user1score=row[3], user2score=row[4], user1gewinnt=row[5], user2gewinnt=row[6], unit=row[7], higherisbetter=row[8], sort=row[9]) for row in cur.fetchall()]
 	for score in scores:
-<<<<<<<<< saved version
 		sortvalue = 100.0*(max(score['user1score'],score['user2score'])) / (score['user2score']+score['user1score'])
-=========
-		sortvalue = 100.0*(max(score['user1score'],score['user2score'])) / (score['user2score']+score['user1score'])
->>>>>>>>> local version
 		if not score['higherisbetter']:
 			sortvalue = 100-sortvalue
 		g.db.execute('update scores set sort = ? where gameid=?', [sortvalue, score['gameid']])
