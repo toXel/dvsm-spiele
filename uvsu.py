@@ -1,6 +1,7 @@
 #!/usr/bin/env python2.7
 
 import sqlite3
+from contextlib import closing
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 import os
 
@@ -10,7 +11,7 @@ app.config.from_pyfile('config.py')
 
 def init_db():
 	with closing(connect_db()) as db:
-		with app.open_resource('data.sql') as f:
+		with app.open_resource('schema.sql') as f:
 			db.cursor().executescript(f.read())
 		db.commit()
 
