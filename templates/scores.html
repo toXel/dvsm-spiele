@@ -4,6 +4,18 @@
 {% if session.logged_in %}
 <div class="admin">
 	<div class="edit">
+    
+    <form action="{{ url_for('edit_user') }}" method="post">
+        <table>
+            <tr><td colspan="2">User bearbeiten:</td></tr>
+            <tr><td><label for="user1name">User 1:</label></td><td><input type="text" name="user1name" placeholder="User 1"</td></tr>
+            <tr><td><label for="user2name">User 2:</label></td><td><input type="text" name="user2name" placeholder="User 2"</td></tr>
+            <tr><td><input type="submit" value="Speichern"</td></tr>
+        </table>
+    </form>
+    
+    <hr>
+    
 	<form action="{{ url_for('new_game') }}" method="post">
 		<table>
 			<tr><td colspan="2">Neues Spiel hinzufügen:</td></tr>
@@ -14,6 +26,7 @@
 			<tr><td><input type="submit" value="Speichern"></td></tr>
 		</table>
 	</form>
+    
 	<hr>
 
 	<form action="{{ url_for('update_score') }}" method="post">
@@ -39,7 +52,7 @@
 			<option value={{ score.gameid }}>{{ score.gametitle }}</option>
 			{% endfor %}
 		</select>
-		<input type="submit" value="L"öschen>
+		<input type="submit" value="Löschen">
 	</form>
 
 	<hr>

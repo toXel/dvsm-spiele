@@ -104,9 +104,13 @@ def edit_game():
 		if request.form.get('edit_unit'):
 			g.db.execute('update scores set unit=? where gameid=?', [request.form['unit'], request.form['game']])
 			g.db.commit()
-		update_sort(request.form['game'])
-		flash('Spiel bearbeitet.')
-		return redirect(url_for('all_scores'))
+        if request.form.get('edit_user'):
+            g.db.execute('update users set user1name=?, user2name=?', [request.form['user1name'], request.form['user2name']])
+            g.db.commit()
+            
+	    update_sort(request.form['game'])
+	    flash('Spiel bearbeitet.')
+	    return redirect(url_for('all_scores'))
 
 
 def update_sort(gameid):
