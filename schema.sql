@@ -4,7 +4,8 @@ create table scores (
 	gametitle string not null,
 	gameurl string not null,
     userid integer,
-	userscore string not null,
+	user1score string not null,
+    user2score string not null,
 	higherisbetter integer not null default 1,
 	unit string,
 	sort integer not null
@@ -12,7 +13,7 @@ create table scores (
 
 drop table if exists users;
 create table users (
-    userid integer primary key autoincrement,
-    username string not null,
-    password string not null
+    user1name string not null,
+    user2name string not null
 );
+
