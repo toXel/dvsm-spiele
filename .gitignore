@@ -1,1 +1,5 @@
-/venv
+# SQLite Databse
+*.db
+
+# Compiled Python
+*.pyc
